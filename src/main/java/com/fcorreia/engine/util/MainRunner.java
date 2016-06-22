@@ -43,10 +43,7 @@ public final class MainRunner
         
         
         //init logic components
-        scene = new Scene(new float[] {0f,0f,0f});
-        
-        scene.addElement( Shape.makeCircle( new Point(320f,240f), 70f, 20, new float[] {1f,1f,0f} ));
-        scene.addElement( Shape.makeCircle( new Point(100f,240f), 30f, 15, new float[] {1f,0.5f,0f} ) );
+        scene = Scene.makeFlyingBallsScene(10, 600, 600);
         
         caps = new GLCapabilities(glprofile);
         caps.setDoubleBuffered(true);

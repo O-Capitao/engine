@@ -1,5 +1,6 @@
 package com.fcorreia.engine.scene;
 
+import com.fcorreia.engine.things.MovingBall;
 import com.fcorreia.engine.things.Point;
 import com.fcorreia.engine.things.Shape;
 import com.jogamp.opengl.GL;
@@ -41,11 +42,9 @@ public class Scene {
         
         gl2.glPushMatrix();
         
-        for (Shape shape : shapes ){
-            
-            shape.render( glad.getGL().getGL2() , glad.getSurfaceWidth() , glad.getSurfaceHeight() );
-            
-        }
+        shapes.stream().forEach((shape) -> {
+            shape.render( glad );
+        });
         
         gl2.glPopMatrix();
         
@@ -65,6 +64,32 @@ public class Scene {
 
     public void setBackgroundColor(float[] backgroundColor) {
         this.backgroundColor = backgroundColor;
+    }
+    
+    public static Scene makeFlyingBallsScene(int n, float width, float height){
+        
+        Scene scene = new Scene (Shape.makeRandomColor());
+        
+        float tet, vel, r;
+        Point x0;
+        float[] color;
+        
+        for (int i = 0 ; i < n ; i++ )
+        {
+            
+            tet = Shape.makeRandomFloat(0, 2f * (float) Math.PI );
+            vel = Shape.makeRandomFloat(0f, 10f);
+            r = Shape.makeRandomFloat(1, 50);
+            color = Shape.makeRandomColor();
+            
+            x0 = new Point(Shape.makeRandomFloat(0, width), Shape.makeRandomFloat(0, height));
+            
+            scene.shapes.add(new MovingBall(tet, vel, n, i, x0, color));
+        }
+        
+        return scene;
+        
+        
     }
    
     
