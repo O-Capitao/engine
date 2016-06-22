@@ -42,9 +42,11 @@ public class Scene {
         
         gl2.glPushMatrix();
         
-        shapes.stream().forEach((shape) -> {
+        for (Shape shape : shapes ){
+            
             shape.render( glad );
-        });
+            
+        }
         
         gl2.glPopMatrix();
         
@@ -54,7 +56,7 @@ public class Scene {
     
     public void update(){
         for (Shape shape : shapes ){
-            shape.translate( new float[] {1,1} );
+            ///shape.translate( new float[] {1,1} );
         }
     }
 
@@ -65,6 +67,32 @@ public class Scene {
     public void setBackgroundColor(float[] backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
+
+    /****
+     * THESE ARE THE FACTORIES
+     * @return 
+     */
+    
+    
+    public static Scene makeSomething(){
+        
+        Scene scene = new Scene( new float[] {1f,1f,1f} );
+        
+        
+        Point[] points = new Point[] {new Point(0f,0f),
+                                        new Point(50f,50f),
+                                        new Point(0f, 100f)};
+        
+        
+        Shape shape = new Shape(3, new float[] {0f,0f,0f} );
+        shape.setPoints(points);
+        
+        scene.addElement(shape);
+        
+        return scene;
+        
+    }
+    
     
     public static Scene makeFlyingBallsScene(int n, float width, float height){
         
@@ -79,17 +107,29 @@ public class Scene {
             
             tet = Shape.makeRandomFloat(0, 2f * (float) Math.PI );
             vel = Shape.makeRandomFloat(0f, 10f);
-            r = Shape.makeRandomFloat(1, 50);
+            r = Shape.makeRandomFloat(10, 50);
             color = Shape.makeRandomColor();
             
             x0 = new Point(Shape.makeRandomFloat(0, width), Shape.makeRandomFloat(0, height));
             
-            scene.shapes.add(new MovingBall(tet, vel, n, i, x0, color));
+            scene.shapes.add(new MovingBall(tet, vel, n, r, new Point(100,100), color));
         }
         
         return scene;
         
         
+    }
+    
+    public String toString(){
+        
+        
+        String out = "Scene \n";
+        
+        for (Shape shape : this.shapes ){
+            out += "\n " + shape.toString() ;
+        }
+        
+        return out;
     }
    
     

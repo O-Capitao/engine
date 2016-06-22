@@ -43,7 +43,11 @@ public final class MainRunner
         
         
         //init logic components
-        scene = Scene.makeFlyingBallsScene(10, 600, 600);
+        //scene = Scene.makeFlyingBallsScene(10, 600, 600);
+        scene = Scene.makeSomething();
+        
+        
+        //System.out.println( scene.toString());
         
         caps = new GLCapabilities(glprofile);
         caps.setDoubleBuffered(true);

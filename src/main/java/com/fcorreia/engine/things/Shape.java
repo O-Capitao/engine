@@ -10,7 +10,7 @@ import java.util.Random;
  *
  * @author fcorreia
  */
-public abstract class Shape implements Drawable{
+public class Shape implements Drawable{
     
     public Point[] points;
     public float[] color;
@@ -89,6 +89,17 @@ public abstract class Shape implements Drawable{
         }
         
         return points;
+    }
+    
+    public String toString(){
+        
+        String output = "";
+        
+        for (Point point : points){
+            output += "\n " + point.toString();
+        }
+        
+        return output;
     }
     
     
