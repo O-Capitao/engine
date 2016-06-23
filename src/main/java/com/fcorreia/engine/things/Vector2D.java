@@ -4,17 +4,17 @@ package com.fcorreia.engine.things;
  *
  * @author fcorreia
  */
-public class Point {
+public class Vector2D {
     
     private final float[] point;
     
-    public Point( float[] point ){
+    public Vector2D( float[] point ){
 
         this.point = new float[] {point[0], point[1] };
 
     }
     
-    public Point(float x, float y){
+    public Vector2D(float x, float y){
         this.point = new float[] { x , y };
         
     }
@@ -54,9 +54,9 @@ public class Point {
      * @param other
      * @return Array (in the form of point object)
      */
-    public Point subtract(Point other){
+    public Vector2D subtract(Vector2D other){
         
-        return new Point( this.getX() - other.getX() , this.getY() - other.getY() );
+        return new Vector2D( this.getX() - other.getX() , this.getY() - other.getY() );
         
     }
     
@@ -65,7 +65,7 @@ public class Point {
     }
     
     
-    public float distanceTo(Point other){
+    public float distanceTo(Vector2D other){
         
         return this.subtract(other).norm();
         

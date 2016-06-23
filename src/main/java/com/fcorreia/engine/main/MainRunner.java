@@ -1,7 +1,7 @@
-package com.fcorreia.engine.util;
+package com.fcorreia.engine.main;
 
 import com.fcorreia.engine.scene.Scene;
-import com.fcorreia.engine.things.Point;
+import com.fcorreia.engine.things.Vector2D;
 import com.fcorreia.engine.things.Shape;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
@@ -44,10 +44,10 @@ public final class MainRunner
         
         //init logic components
         //scene = Scene.makeFlyingBallsScene(10, 600, 600);
-        scene = Scene.makeSomething();
+        //scene = Scene.makeSomething();
+        scene = Scene.makeTwoFlyingBalls(600, 600);
         
-        
-        //System.out.println( scene.toString());
+        System.out.println( scene.toString());
         
         caps = new GLCapabilities(glprofile);
         caps.setDoubleBuffered(true);
@@ -118,6 +118,17 @@ public final class MainRunner
     }    
  
     public static void main ( String[] args ){
+        
+        //TEST SHIT
+        System.out.println("COLORS");
+        System.out.println("#1");
+        float[] color1 = Shape.makeRandomColor();
+        
+        for (float f: color1){
+            System.out.println(Float.toString(f));
+        }
+        
+        
         
         
         new MainRunner().run();

@@ -1,5 +1,6 @@
 package com.fcorreia.engine.things;
 
+import com.fcorreia.engine.utils.VectorOperations;
 import com.fcorreia.engine.behavior.Drawable;
 import com.fcorreia.engine.behavior.Movable;
 import com.jogamp.opengl.GLAutoDrawable;
@@ -13,9 +14,10 @@ public class MovingBall extends Shape implements Drawable, Movable {
     private float teta; //attack azimuth
     private float velocity; //points per frame
     private float radius;
-    private Point movementVector;
+    private Vector2D movementVector;
+    private Vector2D x0;
     
-    public MovingBall(float tet, float vel, int n, float r, Point x0, float[] color ){
+    public MovingBall(float tet, float vel, int n, float r, Vector2D x0, float[] color ){
         
         super(n, color);
         
@@ -25,7 +27,8 @@ public class MovingBall extends Shape implements Drawable, Movable {
         this.radius = r; 
         
         this.points = Shape.makeCirclePoints(x0, n, r);
-        this.movementVector = decomposeIntoVector(velocity, teta);
+        this.movementVector = VectorOperations.decomposeIntoVector2D(velocity, teta);
+        this.x0 = x0;
     }
     
     
@@ -42,9 +45,18 @@ public class MovingBall extends Shape implements Drawable, Movable {
         
     }
     
-    public static Point decomposeIntoVector(float magnitude, float teta ){
+    @Override
+    public String toString(){
+        String out = super.toString();
         
-        return new Point( (float) Math.cos( 2d * Math.PI * (double) teta ), (float) Math.sin( 2d * Math.PI * (double) teta ) );
+        return out + "\n MovingBall spex: \n"
+                        + "radius: " + this.radius + "\n"
+                        + "velocity: " + this.velocity + "\n"
+                        + "teta: " + this.teta + "\n"
+                        + "center posi.: " + this.x0.toString() + "\n"
+                        + "movement V: " + this.movementVector.toString();
+        
+        
         
     }
     

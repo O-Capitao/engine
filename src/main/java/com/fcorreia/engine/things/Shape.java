@@ -12,28 +12,28 @@ import java.util.Random;
  */
 public class Shape implements Drawable{
     
-    public Point[] points;
+    public Vector2D[] points;
     public float[] color;
     
     public Shape(int n_points, float[] color ){
     
-        this.points = new Point[n_points];
+        this.points = new Vector2D[n_points];
         this.color = color;
         
     }
     
     public void translate( float[] displacement ){
         
-        for (Point point : points ){
+        for (Vector2D point : points ){
             point.translate(displacement);
         }
     }
 
-    public Point[] getPoints() {
+    public Vector2D[] getPoints() {
         return points;
     }
 
-    public void setPoints(Point[] points) {
+    public void setPoints(Vector2D[] points) {
         this.points = points;
         
     }
@@ -61,7 +61,7 @@ public class Shape implements Drawable{
         gl2.glBegin( GL2.GL_POLYGON );
         gl2.glColor3f( color[0], color[1], color[2] );
         
-        for ( Point point : this.points ){
+        for ( Vector2D point : this.points ){
             
             gl2.glVertex2f(point.getX(), point.getY() );
             
@@ -71,17 +71,17 @@ public class Shape implements Drawable{
     }
     
     
-    public static Point[] makeCirclePoints(Point x0, int n, float r){
+    public static Vector2D[] makeCirclePoints(Vector2D x0, int n, float r){
         
         
-        Point[] points =  new Point[n];
+        Vector2D[] points =  new Vector2D[n];
         double dTeta = 2d * Math.PI / (double) n ;
         
         
         for (int i = 0 ; i < n ; i++ ){
             
             
-            Point point = new Point(x0.getX() + r * (float) Math.cos( (double) i * dTeta ),
+            Vector2D point = new Vector2D(x0.getX() + r * (float) Math.cos( (double) i * dTeta ),
                                 x0.getY() + r * (float) Math.sin( (double) i * dTeta ));
             
             points[i] = point;
@@ -95,7 +95,7 @@ public class Shape implements Drawable{
         
         String output = "";
         
-        for (Point point : points){
+        for (Vector2D point : points){
             output += "\n " + point.toString();
         }
         
@@ -169,6 +169,9 @@ public class Shape implements Drawable{
         
         return new float[] { makeRandomFloat(0, 1),makeRandomFloat(0, 1), makeRandomFloat(0, 1) };
         
+        //return new float[] {0.5f , 0.2f, 0.1f };
+        
+        
     }
     
     public static int makeRandomInt(int lowBound, int hiBound){
@@ -183,7 +186,7 @@ public class Shape implements Drawable{
         
         Random r  = new Random();
         
-        return lowBound * ((hiBound - lowBound) * r.nextFloat());
+        return lowBound + ((hiBound - lowBound) * r.nextFloat());
     
     }
 
