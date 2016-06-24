@@ -3,7 +3,6 @@ package com.fcorreia.engine.main;
 import com.fcorreia.engine.scene.Scene;
 import com.fcorreia.engine.things.Vector2D;
 import com.fcorreia.engine.things.Shape;
-import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLCapabilities;
@@ -46,11 +45,14 @@ public final class MainRunner
         //scene = Scene.makeFlyingBallsScene(10, 600, 600);
         //scene = Scene.makeSomething();
         scene = Scene.makeTwoFlyingBalls(600, 600);
+        //scene = Scene.ballRolling();
+        
         
         System.out.println( scene.toString());
         
         caps = new GLCapabilities(glprofile);
         caps.setDoubleBuffered(true);
+
         
         canvas = new GLCanvas(caps);
         canvas.addGLEventListener(this);

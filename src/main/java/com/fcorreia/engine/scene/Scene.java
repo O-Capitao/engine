@@ -3,6 +3,7 @@ package com.fcorreia.engine.scene;
 import com.fcorreia.engine.things.MovingBall;
 import com.fcorreia.engine.things.Vector2D;
 import com.fcorreia.engine.things.Shape;
+import com.fcorreia.engine.things.StaticGround;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
@@ -40,6 +41,8 @@ public class Scene {
         
         gl2.glClear( GL.GL_COLOR_BUFFER_BIT );
         
+        gl2.glEnable(GL.GL_MULTISAMPLE);
+        
         gl2.glPushMatrix();
         
         for (Shape shape : shapes ){
@@ -76,7 +79,15 @@ public class Scene {
      * THESE ARE THE FACTORIES
      * @return 
      */
-    
+    public static Scene ballRolling(){
+        
+        Scene s = new Scene( new float[] {0f,0f,0f} );
+        
+        s.addElement(new StaticGround(new float[] {1f,1f,1f}, 600, 600, 0.2f));
+        
+        
+        return s;
+    }
     
     public static Scene makeSomething(){
         
