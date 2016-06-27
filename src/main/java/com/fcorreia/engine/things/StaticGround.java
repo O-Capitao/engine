@@ -1,5 +1,8 @@
 package com.fcorreia.engine.things;
 
+import com.fcorreia.engine.things.generic.Vector2D;
+import com.fcorreia.engine.things.generic.Shape;
+
 
 
 /**

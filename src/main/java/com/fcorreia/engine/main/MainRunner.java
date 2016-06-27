@@ -1,8 +1,8 @@
 package com.fcorreia.engine.main;
 
 import com.fcorreia.engine.scene.Scene;
-import com.fcorreia.engine.things.Vector2D;
-import com.fcorreia.engine.things.Shape;
+import com.fcorreia.engine.things.generic.Vector2D;
+import com.fcorreia.engine.things.generic.Shape;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLCapabilities;
@@ -40,15 +40,9 @@ public final class MainRunner
         
         super("The 2D Engine");
         
-        
+        scene = new Scene(new float[] {0f,0f,0f}, 500,1000);
         //init logic components
-        //scene = Scene.makeFlyingBallsScene(10, 600, 600);
-        //scene = Scene.makeSomething();
-        scene = Scene.makeTwoFlyingBalls(600, 600);
-        //scene = Scene.ballRolling();
-        
-        
-        System.out.println( scene.toString());
+        scene = Scene.makeFlyingBallsScene(30, scene);
         
         caps = new GLCapabilities(glprofile);
         caps.setDoubleBuffered(true);
@@ -65,7 +59,7 @@ public final class MainRunner
     
     public void run(){
         
-        this.setSize(600,600);
+        this.setSize((int)scene.getWidth(), (int)scene.getHeight());
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible( true );
@@ -100,11 +94,11 @@ public final class MainRunner
 
     @Override
     public void reshape(GLAutoDrawable glad, int i, int i1, int i2, int i3) {
-        MainRunner.setup(glad.getGL().getGL2(), glad.getSurfaceWidth(), glad.getSurfaceHeight() );
+        MainRunner.setup(glad.getGL().getGL2(), glad.getSurfaceWidth(), glad.getSurfaceHeight(), this.scene );
     }
     
     
-    public static void setup( GL2 gl2, int width, int height ) {
+    public static void setup( GL2 gl2, int width, int height, Scene sc ) {
         
         gl2.glMatrixMode( GL2.GL_PROJECTION );
         gl2.glLoadIdentity();
@@ -117,6 +111,11 @@ public final class MainRunner
         gl2.glLoadIdentity();
 
         gl2.glViewport( 0, 0, width, height );
+        
+        sc.setWidth(width);
+        sc.setHeight(height);
+        
+        
     }    
  
     public static void main ( String[] args ){

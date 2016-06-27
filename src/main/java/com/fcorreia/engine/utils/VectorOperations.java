@@ -1,6 +1,6 @@
 package com.fcorreia.engine.utils;
 
-import com.fcorreia.engine.things.Vector2D;
+import com.fcorreia.engine.things.generic.Vector2D;
 
 /**
  * Static functions to conveniently handle simple algebra

@@ -1,4 +1,4 @@
-package com.fcorreia.engine.things;
+package com.fcorreia.engine.things.generic;
 
 /**
  *
@@ -48,6 +48,14 @@ public class Vector2D {
         this.point[1] += displacement[1];
     }
     
+    /***
+     * Planar rotation 
+     * @param pivot 
+     */
+    public void revolveAround(Vector2D pivot){
+        
+    }
+    
     /**
      * subtract in the form : 
      *  this_point - other_point
@@ -68,6 +76,15 @@ public class Vector2D {
     public float distanceTo(Vector2D other){
         
         return this.subtract(other).norm();
+        
+    }
+    
+    public void scalarMultiply( float scalar ){
+        
+        float[] current = this.getArrayForm();
+        
+        current[0] *= scalar ;
+        current[1] *= scalar ;        
         
     }
     

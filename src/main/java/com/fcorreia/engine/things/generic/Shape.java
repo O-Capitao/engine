@@ -1,4 +1,4 @@
-package com.fcorreia.engine.things;
+package com.fcorreia.engine.things.generic;
 
 import com.fcorreia.engine.behavior.Drawable;
 import com.jogamp.opengl.GL2;
@@ -14,6 +14,8 @@ public class Shape implements Drawable{
     
     public Vector2D[] points;
     public float[] color;
+    
+    
     
     public Shape(int n_points, float[] color ){
     
@@ -56,7 +58,7 @@ public class Shape implements Drawable{
         
         GL2 gl2 = glad.getGL().getGL2();
 
-        // draw a triangle filling the window
+        
         gl2.glLoadIdentity();
         gl2.glBegin( GL2.GL_POLYGON );
         gl2.glColor3f( color[0], color[1], color[2] );
