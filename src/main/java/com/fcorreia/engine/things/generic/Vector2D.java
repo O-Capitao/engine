@@ -1,59 +1,75 @@
 package com.fcorreia.engine.things.generic;
 
+import com.fcorreia.engine.utils.VectorOperations;
+
 /**
  *
  * @author fcorreia
  */
 public class Vector2D {
     
-    private final float[] point;
+    private final float[] vector;
     
     public Vector2D( float[] point ){
 
-        this.point = new float[] {point[0], point[1] };
+        this.vector = new float[] {point[0], point[1] };
 
     }
     
     public Vector2D(float x, float y){
-        this.point = new float[] { x , y };
+        this.vector = new float[] { x , y };
         
     }
 
     public float getX() {
-        return point[0];
+        return vector[0];
     }
 
     public void setX(float x) {
-        this.point[0] = x;
+        this.vector[0] = x;
     }
 
     public float getY() {
-        return point[1];
+        return vector[1];
     }
 
     public void setY(float y) {
-        this.point[1] = y;
+        this.vector[1] = y;
     }
     
     
     public float[] getArrayForm(){
-        return this.point;
+        return this.vector;
+    }
+    
+    public void setArrayForm(float[] input){
+        this.vector[0] = input[0];
+        this.vector[1] = input[1];
     }
     
     
     /**
      * @param displacement*****/
     public void translate( float[] displacement ){
-        this.point[0] += displacement[0];
-        this.point[1] += displacement[1];
+        this.vector[0] += displacement[0];
+        this.vector[1] += displacement[1];
     }
     
     /***
      * Planar rotation 
      * @param pivot 
      */
-    public void revolveAround(Vector2D pivot){
+    public void rotateAround(Vector2D pivot, float teta){
+       
         
+        float[] increment =  VectorOperations.rotateVectorAroundVector(this.getArrayForm(), pivot.getArrayForm(), teta) ;
+        System.out.println("Rotate debug: \n " + increment[0] + increment[1]);
+        
+        
+        this.setArrayForm( increment );
+    
+        
+    
     }
     
     /**
@@ -68,8 +84,12 @@ public class Vector2D {
         
     }
     
+    //public float norm(){
+    //    return (float)(Math.sqrt( Math.pow((double)this.getX(), 2) + Math.pow( (double)this.getY(), 2)  ));
+    //}
+    
     public float norm(){
-        return (float)(Math.sqrt( Math.pow((double)this.getX(), 2) + Math.pow( (double)this.getY(), 2)  ));
+        return VectorOperations.getVectorNorm(this.vector);
     }
     
     
@@ -91,7 +111,7 @@ public class Vector2D {
     @Override
     public String toString(){
         
-        return "{x: " + Float.toString(point[0]) + " ,y: " + Float.toString(point[1]) + " }";
+        return "{x: " + Float.toString(vector[0]) + " ,y: " + Float.toString(vector[1]) + " }";
         
     }
     

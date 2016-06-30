@@ -7,6 +7,8 @@ import com.fcorreia.engine.behavior.Drawable;
 import com.fcorreia.engine.behavior.Movable;
 import com.fcorreia.engine.scene.Scene;
 import com.fcorreia.engine.things.generic.BoundingBox;
+import com.fcorreia.engine.things.generic.FloatColorTriplet;
+import com.fcorreia.engine.utils.TrigLookUpTable;
 import com.jogamp.opengl.GLAutoDrawable;
 
 /**
@@ -18,8 +20,10 @@ public class MovingShape extends Shape implements Drawable, Movable {
     private float teta; //attack azimuth
     private float velocity; //points per frame
     private float radius;
+    
     private Vector2D movementVector;
     private Vector2D x0;
+    
     private float dampCoeficient;
     
     private boolean boundByScene;
@@ -28,11 +32,18 @@ public class MovingShape extends Shape implements Drawable, Movable {
     
     private Scene sc ; 
     
+    //private final TrigLookUpTable tlut = TrigLookUpTable.makeInstance();
+    
+    
     public MovingShape(Scene scene ,float tet, float vel, float r,
             Vector2D x0, float[] color, float dampCoef,
-            boolean boundByFrame ){
+            boolean boundByFrame
+            ){
         
-        super(MovingShape.calcResolution(r), color);
+        super(MovingShape.calcResolution(r), new FloatColorTriplet(color));
+        
+        
+        
         
         this.sc = scene;
         
@@ -41,8 +52,8 @@ public class MovingShape extends Shape implements Drawable, Movable {
         
         this.radius = r; 
         
-        this.points = Shape.makeCirclePoints(x0, MovingShape.calcResolution(r), r);
-        this.movementVector = VectorOperations.decomposeIntoVector2D(velocity, teta);
+        this.points = Shape.makeCirclePoints(x0, MovingShape.calcResolution(), r); //method overriden
+        this.movementVector = new Vector2D( VectorOperations.decomposeIntoVector(velocity, teta) );
         this.x0 = x0;
         
         this.dampCoeficient = dampCoef;
@@ -64,6 +75,8 @@ public class MovingShape extends Shape implements Drawable, Movable {
     public void update() {
         
         bb.translate(this.movementVector);
+        x0.translate(this.movementVector.getArrayForm());
+        
         this.translate( this.movementVector.getArrayForm() );
         this.dampMovement();
         
@@ -123,6 +136,14 @@ public class MovingShape extends Shape implements Drawable, Movable {
             return 3;
         }
         
+    }
+    
+    public static int calcResolution(){
+        return 3;
+    }
+    
+    public Vector2D getX0(){
+        return this.x0;
     }
     
     

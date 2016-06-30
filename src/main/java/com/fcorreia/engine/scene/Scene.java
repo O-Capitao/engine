@@ -1,6 +1,7 @@
 package com.fcorreia.engine.scene;
 
 import com.fcorreia.engine.things.MovingShape;
+import com.fcorreia.engine.things.RotatingMovingShape;
 import com.fcorreia.engine.things.generic.Vector2D;
 import com.fcorreia.engine.things.generic.Shape;
 
@@ -105,11 +106,11 @@ public class Scene {
      * @param height
      * @return 
      */
-    public static Scene makeFlyingBallsScene(int n, Scene scene){
+    public static void makeFlyingBallsScene(int n, Scene scene){
         
         //scene = new Scene (new float[] {0f,0f,0f}, width, height);
         
-        float tet, vel, r;
+        /*float tet, vel, r;
         Vector2D x0;
         float[] color;
         
@@ -125,8 +126,16 @@ public class Scene {
             
             scene.shapes.add(new MovingShape(scene, tet, vel, r, x0, color,1.0f, true));
         }
+        */
+        //add the rotator
+        scene.shapes.add( new RotatingMovingShape(scene, (float)Math.PI, 0f, 50f,
+                            new Vector2D(scene.width/2f, scene.height/2f) ,new float[]{1f,0f,0f}, 1f, false,
+                            0.001f)
+                        );
         
-        return scene;
+        
+        
+        //return scene;
         
         
     }
