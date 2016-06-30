@@ -40,7 +40,9 @@ public final class MainRunner
         
         scene = new Scene(new float[] {0f,0f,0f}, 500,1000);
         //init logic components
-        Scene.makeFlyingBallsScene(30, scene);
+        //Scene.makeFlyingBallsScene(30, scene);
+        Scene.makeRotatingTriangle(scene);
+        
         
         caps = new GLCapabilities(glprofile);
         caps.setDoubleBuffered(true);

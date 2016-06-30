@@ -8,7 +8,7 @@ import com.fcorreia.engine.behavior.Movable;
 import com.fcorreia.engine.scene.Scene;
 import com.fcorreia.engine.things.generic.BoundingBox;
 import com.fcorreia.engine.things.generic.FloatColorTriplet;
-import com.fcorreia.engine.utils.TrigLookUpTable;
+
 import com.jogamp.opengl.GLAutoDrawable;
 
 /**
@@ -17,12 +17,12 @@ import com.jogamp.opengl.GLAutoDrawable;
  */
 public class MovingShape extends Shape implements Drawable, Movable {
 
-    private float teta; //attack azimuth
-    private float velocity; //points per frame
     private float radius;
     
     private Vector2D movementVector;
     private Vector2D x0;
+    private float dTeta;
+    
     
     private float dampCoeficient;
     
@@ -32,28 +32,24 @@ public class MovingShape extends Shape implements Drawable, Movable {
     
     private Scene sc ; 
     
-    //private final TrigLookUpTable tlut = TrigLookUpTable.makeInstance();
     
     
-    public MovingShape(Scene scene ,float tet, float vel, float r,
-            Vector2D x0, float[] color, float dampCoef,
-            boolean boundByFrame
+    
+    public MovingShape(Scene scene ,float tet, float vel, float r, Vector2D x0, FloatColorTriplet color, float dampCoef,
+            boolean boundByFrame, float dTeta
             ){
         
-        super(MovingShape.calcResolution(r), new FloatColorTriplet(color));
+        super(MovingShape.calcResolution(r), color );
         
         
         
         
         this.sc = scene;
-        
-        this.teta = tet;
-        this.velocity = vel;
-        
+        this.dTeta = dTeta;
         this.radius = r; 
         
         this.points = Shape.makeCirclePoints(x0, MovingShape.calcResolution(), r); //method overriden
-        this.movementVector = new Vector2D( VectorOperations.decomposeIntoVector(velocity, teta) );
+        this.movementVector = new Vector2D( VectorOperations.decomposeIntoVector(vel, tet) );
         this.x0 = x0;
         
         this.dampCoeficient = dampCoef;
@@ -77,7 +73,11 @@ public class MovingShape extends Shape implements Drawable, Movable {
         bb.translate(this.movementVector);
         x0.translate(this.movementVector.getArrayForm());
         
+        
+        
         this.translate( this.movementVector.getArrayForm() );
+        this.rotateShapeAroundItself();
+        
         this.dampMovement();
         
         //rebound on screen limits
@@ -96,14 +96,20 @@ public class MovingShape extends Shape implements Drawable, Movable {
         this.movementVector.scalarMultiply(this.dampCoeficient);
     }
     
+    
+    public void rotateShapeAroundItself(){
+        for (Vector2D v : this.points ){
+            v.rotateAround(this.x0, dTeta);
+        }
+    }
+    
+    
     @Override
     public String toString(){
         String out = super.toString();
         
         return out + "\n MovingShape spex: \n"
                         + "radius: " + this.radius + "\n"
-                        + "velocity: " + this.velocity + "\n"
-                        + "teta: " + this.teta + "\n"
                         + "center posi.: " + this.x0.toString() + "\n"
                         + "movement V: " + this.movementVector.toString();
         
@@ -138,6 +144,10 @@ public class MovingShape extends Shape implements Drawable, Movable {
         
     }
     
+    /**
+     * simple shunt
+     * @return 
+     */
     public static int calcResolution(){
         return 3;
     }

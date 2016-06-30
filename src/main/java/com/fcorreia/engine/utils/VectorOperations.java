@@ -30,8 +30,8 @@ public class VectorOperations {
        
         TrigLookUpTable tlut = TrigLookUpTable.makeInstance();
        
-        return new float[] { vector[0] * tlut.getCos(teta) ,
-                             vector[1] * tlut.getSin(teta)
+        return new float[] { vector[0] * (float)Math.cos(teta) ,
+                             vector[1] * (float)Math.sin(teta)
            
         };
        

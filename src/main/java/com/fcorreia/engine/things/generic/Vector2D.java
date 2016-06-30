@@ -8,7 +8,7 @@ import com.fcorreia.engine.utils.VectorOperations;
  */
 public class Vector2D {
     
-    private final float[] vector;
+    private float[] vector;
     
     public Vector2D( float[] point ){
 
@@ -63,7 +63,8 @@ public class Vector2D {
        
         
         float[] increment =  VectorOperations.rotateVectorAroundVector(this.getArrayForm(), pivot.getArrayForm(), teta) ;
-        System.out.println("Rotate debug: \n " + increment[0] + increment[1]);
+        increment = new float[] {1,1};
+        System.out.println("Rotate debug: \n " + increment[0] + " " + increment[1]);
         
         
         this.setArrayForm( increment );

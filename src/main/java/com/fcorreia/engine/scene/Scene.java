@@ -1,9 +1,11 @@
 package com.fcorreia.engine.scene;
 
 import com.fcorreia.engine.things.MovingShape;
-import com.fcorreia.engine.things.RotatingMovingShape;
+
+import com.fcorreia.engine.things.generic.FloatColorTriplet;
 import com.fcorreia.engine.things.generic.Vector2D;
 import com.fcorreia.engine.things.generic.Shape;
+import com.fcorreia.engine.utils.ScalarOperations;
 
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
@@ -110,32 +112,31 @@ public class Scene {
         
         //scene = new Scene (new float[] {0f,0f,0f}, width, height);
         
-        /*float tet, vel, r;
+        float tet, vel, r;
         Vector2D x0;
-        float[] color;
+        FloatColorTriplet color;
         
         for (int i = 0 ; i < n ; i++ )
         {
             
-            tet = Shape.makeRandomFloat(0, 2f * (float) Math.PI );
-            vel = Shape.makeRandomFloat(0.05f, 1f);
-            r = Shape.makeRandomFloat(10, 15);
-            color = Shape.makeRandomColor();
+            tet = ScalarOperations.makeRandomFloat(0, 2f * (float) Math.PI );
+            vel = ScalarOperations.makeRandomFloat(0.05f, 1f);
+            r = ScalarOperations.makeRandomFloat(10, 15);
+            color = FloatColorTriplet.makeRandom();
             
-            x0 = new Vector2D(Shape.makeRandomFloat(0, scene.getWidth()), Shape.makeRandomFloat(0, scene.getHeight()));
+            x0 = new Vector2D(ScalarOperations.makeRandomFloat(0, scene.getWidth()), ScalarOperations.makeRandomFloat(0, scene.getHeight()));
             
-            scene.shapes.add(new MovingShape(scene, tet, vel, r, x0, color,1.0f, true));
+            scene.shapes.add(new MovingShape(scene, tet, vel, r, x0, color,1.0f, true, 0.001f));
         }
-        */
-        //add the rotator
-        scene.shapes.add( new RotatingMovingShape(scene, (float)Math.PI, 0f, 50f,
-                            new Vector2D(scene.width/2f, scene.height/2f) ,new float[]{1f,0f,0f}, 1f, false,
-                            0.001f)
-                        );
         
+               
         
+    }
+    
+    public static void makeRotatingTriangle(Scene scene){
         
-        //return scene;
+        scene.shapes.add( new MovingShape(scene, 0f,0f, 30f, new Vector2D(scene.width/2, scene.height/2),
+                                          FloatColorTriplet.makeWhite(), 1.0f, false, 0.0003f ));   
         
         
     }
